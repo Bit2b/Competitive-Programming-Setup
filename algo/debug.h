@@ -8,7 +8,6 @@ string to_string(const char *s){
 	return to_string((string)s);
 }
 
-// added by me
 string to_string(const char s){
 	string c{s};
 	return "'"+ c +"'";
