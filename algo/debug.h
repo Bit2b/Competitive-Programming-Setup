@@ -8,6 +8,12 @@ string to_string(const char *s){
 	return to_string((string)s);
 }
 
+// added by me
+string to_string(const char s){
+	string c{s};
+	return "'"+ c +"'";
+}
+
 string to_string(bool b){
 	return (b ? "true" : "false");
 }
@@ -30,6 +36,23 @@ string to_string(A v){
 	}
 	res += "}";
 	return res;
+}
+
+template <class _Ty, class _Container = std::vector<_Ty>, class Compare = std::less<_Ty>>
+static std::vector<_Ty> &Container(std::priority_queue<_Ty, _Container, Compare> &q){
+	struct HackedQueue : private std::priority_queue<_Ty, _Container, Compare>{
+		static std::vector<_Ty> &Container(std::priority_queue<_Ty, _Container, Compare> &q){
+			return q.*&HackedQueue::c;
+		}
+	};
+	return HackedQueue::Container(q);
+};
+
+template <typename T, typename Compare = std::less<T>>
+string to_string(std::priority_queue<T, std::vector<T>, Compare> pq){
+	std::vector<T> heap = Container<T, std::vector<T>, Compare>(pq);
+	sort(heap.begin(), heap.end(), Compare());
+	return to_string(heap);
 }
 
 void debug_out(){
