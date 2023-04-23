@@ -9,7 +9,7 @@ string to_string(const char *s){
 }
 
 string to_string(const char s){
-	string c{s};
+	string c(1,s);
 	return "'"+ c +"'";
 }
 

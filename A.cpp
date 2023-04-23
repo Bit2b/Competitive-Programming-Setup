@@ -8,7 +8,7 @@
 #define int long long int
 #define IMAX INT64_MAX
 #define IMIN INT64_MIN
-#define endl "\n"
+#define endl '\n'
 const int MOD =(int)1000000000+7;
 using namespace std;
 void cases();
