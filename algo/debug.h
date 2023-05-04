@@ -37,21 +37,16 @@ string to_string(A v){
 	return res;
 }
 
-template <class _Ty, class _Container = std::vector<_Ty>, class Compare = std::less<_Ty>>
-static std::vector<_Ty> &Container(std::priority_queue<_Ty, _Container, Compare> &q){
-	struct HackedQueue : private std::priority_queue<_Ty, _Container, Compare>{
-		static std::vector<_Ty> &Container(std::priority_queue<_Ty, _Container, Compare> &q){
-			return q.*&HackedQueue::c;
-		}
-	};
-	return HackedQueue::Container(q);
-};
-
-template <typename T, typename Compare = std::less<T>>
+template <typename T, typename Compare>
 string to_string(std::priority_queue<T, std::vector<T>, Compare> pq){
-	std::vector<T> heap = Container<T, std::vector<T>, Compare>(pq);
-	sort(heap.begin(), heap.end(), Compare());
-	return to_string(heap);
+	priority_queue<T,std::vector<T>,Compare>q(pq);
+	vector<T>v(pq.size());
+	for(T &x:v)
+	{
+		x=pq.top();
+		pq.pop();
+	}
+	return to_string(v);
 }
 
 void debug_out(){
